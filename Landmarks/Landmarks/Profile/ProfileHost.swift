@@ -22,7 +22,7 @@ struct ProfileHost: View {
             if self.mode?.wrappedValue == .inactive {
                 ProfileSummary(profile: profile)
             } else {
-                Text("Profile Editor")
+                ProfileEditor(profile: $draftProfile)
             }
             
         }
