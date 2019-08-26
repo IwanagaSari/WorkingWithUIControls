@@ -11,10 +11,20 @@ import SwiftUI
 struct ProfileHost: View {
     @Environment(\.editMode) var mode
     @State var profile = Profile.default
-    @State var drafiProfile = Profile.default
+    @State var draftProfile = Profile.default
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
+                if self.mode?.wrappedValue == .active {
+                    Button(action: {
+                        self.profile = self.draftProfile
+                        self.mode?.animation().wrappedValue = .inactive
+                    }) {
+                        Text("Done")
+                    }
+                }
+                
                 Spacer()
                 
                 EditButton()
@@ -23,8 +33,10 @@ struct ProfileHost: View {
                 ProfileSummary(profile: profile)
             } else {
                 ProfileEditor(profile: $draftProfile)
+                    .onDisappear {
+                        self.draftProfile = self.profile
+                    }
             }
-            
         }
         .padding()
     }

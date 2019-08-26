@@ -20,8 +20,7 @@ struct ProfileEditor: View {
     var body: some View {
         List {
             HStack {
-                Text("Username")
-                    .bold()
+                Text("Username").bold()
                 Divider()
                 TextField("Username", text: $profile.username)
             }
@@ -31,11 +30,10 @@ struct ProfileEditor: View {
             }
             
             VStack(alignment: .leading, spacing: 20) {
-                Text("Seasonal Photo")
-                    .bold()
+                Text("Seasonal Photo").bold()
                 
                 Picker("Seasonal Photo", selection: $profile.seasonalPhoto) {
-                    ForEach(Profile.Season.allCases.identified(by: \.self)) { season in
+                    ForEach(Profile.Season.allCases, id: \.self) { season in
                         Text(season.rawValue).tag(season)
                     }
                 }
